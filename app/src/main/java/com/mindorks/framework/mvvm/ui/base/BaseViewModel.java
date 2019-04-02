@@ -34,7 +34,8 @@ public abstract class BaseViewModel<N> extends ViewModel {
 
     private final DataManager mDataManager;
 
-    private final ObservableBoolean mIsLoading = new ObservableBoolean(false);
+    public final ObservableBoolean isLoadingValue = new ObservableBoolean(false);
+    public final ObservableBoolean isLoadingValue1 = new ObservableBoolean(false);
 
     private final SchedulerProvider mSchedulerProvider;
 
@@ -64,12 +65,23 @@ public abstract class BaseViewModel<N> extends ViewModel {
     }
 
     public ObservableBoolean getIsLoading() {
-        return mIsLoading;
+        return isLoadingValue;
     }
 
     public void setIsLoading(boolean isLoading) {
-        mIsLoading.set(isLoading);
+        isLoadingValue.set(isLoading);
     }
+
+
+    public void setIsLoadingValue1(boolean isLoading) {
+        isLoadingValue1.set(isLoading);
+    }
+
+
+/*    public ObservableBoolean getIsLoadingValue1() {
+        return isLoadingValue1;
+    }*/
+
 
     public N getNavigator() {
         return mNavigator.get();

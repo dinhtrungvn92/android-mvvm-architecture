@@ -18,6 +18,7 @@ package com.mindorks.framework.mvvm.ui.feed.blogs;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 
 import com.mindorks.framework.mvvm.data.DataManager;
@@ -37,6 +38,9 @@ public class BlogViewModel extends BaseViewModel<BlogNavigator> {
 
     private final MutableLiveData<List<BlogResponse.Blog>> blogListLiveData;
 
+    public ObservableBoolean isRefresh = new ObservableBoolean(true);
+
+
     public BlogViewModel(DataManager dataManager,
                          SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
@@ -45,12 +49,16 @@ public class BlogViewModel extends BaseViewModel<BlogNavigator> {
     }
 
     public void addBlogItemsToList(List<BlogResponse.Blog> blogs) {
-        blogObservableArrayList.clear();
-        blogObservableArrayList.addAll(blogs);
+        if (isRefresh.get()) {
+            blogObservableArrayList.clear();
+            blogObservableArrayList.addAll(blogs);
+        } else {
+            blogObservableArrayList.addAll(blogs);
+        }
     }
 
     public void fetchBlogs() {
-        setIsLoading(true);
+        setIsLoadingValue1(true);
         getCompositeDisposable().add(getDataManager()
                 .getBlogApiCall()
                 .subscribeOn(getSchedulerProvider().io())
@@ -59,9 +67,30 @@ public class BlogViewModel extends BaseViewModel<BlogNavigator> {
                     if (blogResponse != null && blogResponse.getData() != null) {
                         blogListLiveData.setValue(blogResponse.getData());
                     }
-                    setIsLoading(false);
+                    setIsLoadingValue1(false);
                 }, throwable -> {
-                    setIsLoading(false);
+                    setIsLoadingValue1(false);
+                    getNavigator().handleError(throwable);
+                }));
+    }
+
+    public void loadMore() {
+        isRefresh.set(false);
+        setIsLoadingValue1(true);
+        getCompositeDisposable().add(getDataManager()
+                .getBlogApiCall()
+                .subscribeOn(getSchedulerProvider().io())
+                .observeOn(getSchedulerProvider().ui())
+                .subscribe(blogResponse -> {
+                    if (blogResponse != null && blogResponse.getData() != null) {
+                       /* List<BlogResponse.Blog> blogList = blogListLiveData.getValue();
+                        blogList.addAll(blogResponse.getData());
+                        blogListLiveData.setValue(blogList);*/
+                        blogListLiveData.setValue(blogResponse.getData());
+                    }
+                    setIsLoadingValue1(false);
+                }, throwable -> {
+                    setIsLoadingValue1(false);
                     getNavigator().handleError(throwable);
                 }));
     }
@@ -70,7 +99,4 @@ public class BlogViewModel extends BaseViewModel<BlogNavigator> {
         return blogListLiveData;
     }
 
-    public ObservableList<BlogResponse.Blog> getBlogObservableList() {
-        return blogObservableArrayList;
-    }
 }

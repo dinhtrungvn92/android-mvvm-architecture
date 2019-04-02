@@ -43,12 +43,12 @@ public final class BindingUtils {
         // This class is not publicly instantiable
     }
 
-    @BindingAdapter({"adapter"})
-    public static void addBlogItems(RecyclerView recyclerView, List<BlogResponse.Blog> blogs) {
+    @BindingAdapter({"data", "action"})
+    public static void addBlogItems(RecyclerView recyclerView, List<BlogResponse.Blog> blogs, boolean isRefresh) {
         BlogAdapter adapter = (BlogAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
-            adapter.addItems(blogs);
+            adapter.addItems(blogs, isRefresh);
         }
     }
 

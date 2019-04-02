@@ -18,6 +18,7 @@ package com.mindorks.framework.mvvm.ui.feed.opensource;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 
 import com.mindorks.framework.mvvm.data.DataManager;
@@ -37,6 +38,9 @@ public class OpenSourceViewModel extends BaseViewModel<OpenSourceNavigator> {
     private final ObservableList<OpenSourceItemViewModel> openSourceItemViewModels = new ObservableArrayList<>();
 
     private final MutableLiveData<List<OpenSourceItemViewModel>> openSourceItemsLiveData;
+
+    private final ObservableBoolean isLoadingValue2 = new ObservableBoolean(false);
+
 
     public OpenSourceViewModel(DataManager dataManager,
                                SchedulerProvider schedulerProvider) {
@@ -83,5 +87,9 @@ public class OpenSourceViewModel extends BaseViewModel<OpenSourceNavigator> {
                     repo.getDescription(), repo.getProjectUrl()));
         }
         return openSourceItemViewModels;
+    }
+
+    public ObservableBoolean getIsLoadingValue2() {
+        return isLoadingValue2;
     }
 }

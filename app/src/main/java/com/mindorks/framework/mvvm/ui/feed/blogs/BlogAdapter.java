@@ -86,10 +86,11 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-    public void addItems(List<BlogResponse.Blog> blogList) {
+    public void addItems(List<BlogResponse.Blog> blogList, boolean isRefresh) {
         mBlogResponseList.addAll(blogList);
         notifyDataSetChanged();
     }
+
 
     public void clearItems() {
         mBlogResponseList.clear();

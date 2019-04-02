@@ -41,7 +41,9 @@
                 android:id="@+id/blogRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:adapter="@{viewModel.blogObservableArrayList}"
+                android:paddingBottom="200dp"
+                app:action="@{viewModel.isRefresh}"
+                app:data="@{viewModel.blogObservableArrayList}"
                 tools:listitem="@layout/item_blog_view" />
 
         </LinearLayout>
@@ -52,7 +54,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{viewModel.isLoadingValue1 ? View.VISIBLE : View.GONE}" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:onClick="@{() -> viewModel.loadMore()}"
+            app:srcCompat="@drawable/ic_add_white_24px" />
     </FrameLayout>
 
 </layout>

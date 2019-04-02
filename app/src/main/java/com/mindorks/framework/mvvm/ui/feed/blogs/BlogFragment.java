@@ -29,6 +29,7 @@ import com.mindorks.framework.mvvm.BR;
 import com.mindorks.framework.mvvm.R;
 import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
 import com.mindorks.framework.mvvm.databinding.FragmentBlogBinding;
+import com.mindorks.framework.mvvm.databinding.FragmentOpenSourceBinding;
 import com.mindorks.framework.mvvm.ui.base.BaseFragment;
 
 import java.util.List;
@@ -97,11 +98,6 @@ public class BlogFragment extends BaseFragment<FragmentBlogBinding, BlogViewMode
         mFragmentBlogBinding = getViewDataBinding();
         setUp();
         subscribeToLiveData();
-    }
-
-    @Override
-    public void updateBlog(List<BlogResponse.Blog> blogList) {
-        mBlogAdapter.addItems(blogList);
     }
 
     private void setUp() {
