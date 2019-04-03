@@ -16,6 +16,8 @@
 
 package com.mindorks.framework.mvvm.data.remote;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.mindorks.framework.mvvm.di.ApiInfo;
@@ -29,7 +31,7 @@ import javax.inject.Singleton;
 
 @Singleton
 public class ApiHeader {
-
+    private static final String TAG = "ApiHeader";
     private ProtectedApiHeader mProtectedApiHeader;
 
     private PublicApiHeader mPublicApiHeader;
@@ -41,6 +43,7 @@ public class ApiHeader {
     }
 
     public ProtectedApiHeader getProtectedApiHeader() {
+        Log.d(TAG, "getProtectedApiHeader: " + mProtectedApiHeader.toString());
         return mProtectedApiHeader;
     }
 
@@ -90,6 +93,15 @@ public class ApiHeader {
 
         public void setUserId(Long mUserId) {
             this.mUserId = mUserId;
+        }
+
+        @Override
+        public String toString() {
+            return "ProtectedApiHeader{" +
+                    "mAccessToken='" + mAccessToken + '\'' +
+                    ", mApiKey='" + mApiKey + '\'' +
+                    ", mUserId=" + mUserId +
+                    '}';
         }
     }
 

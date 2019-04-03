@@ -19,6 +19,7 @@ package com.mindorks.framework.mvvm.ui.feed.blogs;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
+import android.databinding.ObservableInt;
 import android.databinding.ObservableList;
 
 import com.mindorks.framework.mvvm.data.DataManager;
@@ -35,11 +36,12 @@ import java.util.List;
 public class BlogViewModel extends BaseViewModel<BlogNavigator> {
 
     public final ObservableList<BlogResponse.Blog> blogObservableArrayList = new ObservableArrayList<>();
+    public final ObservableList<BlogResponse.Blog> blogObservableArrayList1 = new ObservableArrayList<>();
 
     private final MutableLiveData<List<BlogResponse.Blog>> blogListLiveData;
 
-    public ObservableBoolean isRefresh = new ObservableBoolean(true);
-
+    public ObservableInt lastposition = new ObservableInt(0);
+    public ObservableInt lastposition1 = new ObservableInt(0);
 
     public BlogViewModel(DataManager dataManager,
                          SchedulerProvider schedulerProvider) {
@@ -49,12 +51,10 @@ public class BlogViewModel extends BaseViewModel<BlogNavigator> {
     }
 
     public void addBlogItemsToList(List<BlogResponse.Blog> blogs) {
-        if (isRefresh.get()) {
-            blogObservableArrayList.clear();
-            blogObservableArrayList.addAll(blogs);
-        } else {
-            blogObservableArrayList.addAll(blogs);
-        }
+        lastposition.set(blogObservableArrayList.size());
+        lastposition1.set(blogObservableArrayList1.size());
+        blogObservableArrayList1.addAll(blogs);
+        blogObservableArrayList.addAll(blogs);
     }
 
     public void fetchBlogs() {
@@ -75,7 +75,6 @@ public class BlogViewModel extends BaseViewModel<BlogNavigator> {
     }
 
     public void loadMore() {
-        isRefresh.set(false);
         setIsLoadingValue1(true);
         getCompositeDisposable().add(getDataManager()
                 .getBlogApiCall()
@@ -83,9 +82,6 @@ public class BlogViewModel extends BaseViewModel<BlogNavigator> {
                 .observeOn(getSchedulerProvider().ui())
                 .subscribe(blogResponse -> {
                     if (blogResponse != null && blogResponse.getData() != null) {
-                       /* List<BlogResponse.Blog> blogList = blogListLiveData.getValue();
-                        blogList.addAll(blogResponse.getData());
-                        blogListLiveData.setValue(blogList);*/
                         blogListLiveData.setValue(blogResponse.getData());
                     }
                     setIsLoadingValue1(false);

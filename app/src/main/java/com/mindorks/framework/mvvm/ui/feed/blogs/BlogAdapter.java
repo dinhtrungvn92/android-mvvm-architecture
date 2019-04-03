@@ -17,8 +17,10 @@
 package com.mindorks.framework.mvvm.ui.feed.blogs;
 
 import android.content.Intent;
+import android.databinding.ObservableList;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -35,6 +37,7 @@ import java.util.List;
  */
 
 public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
+    private static final String TAG = "BlogAdapter";
 
     public static final int VIEW_TYPE_EMPTY = 0;
 
@@ -86,9 +89,14 @@ public class BlogAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         }
     }
 
-    public void addItems(List<BlogResponse.Blog> blogList, boolean isRefresh) {
-        mBlogResponseList.addAll(blogList);
-        notifyDataSetChanged();
+    public void addItems(List<BlogResponse.Blog> blogList, int lastposition) {
+        if (lastposition == 0) {
+            mBlogResponseList.addAll(blogList);
+            notifyDataSetChanged();
+        } else {
+            mBlogResponseList.addAll(blogList);
+            notifyItemInserted(lastposition);
+        }
     }
 
 

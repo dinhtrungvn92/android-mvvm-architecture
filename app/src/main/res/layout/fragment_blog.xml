@@ -40,11 +40,23 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/blogRecyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:clipToPadding="false"
                 android:paddingBottom="200dp"
-                app:action="@{viewModel.isRefresh}"
-                app:data="@{viewModel.blogObservableArrayList}"
+                app:items="@{viewModel.blogObservableArrayList}"
+                app:lastposition="@{viewModel.lastposition}"
+                tools:listitem="@layout/item_blog_view" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/blogRecyclerView1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="200dp"
+                app:items="@{viewModel.blogObservableArrayList1}"
+                app:lastposition="@{viewModel.lastposition1}"
                 tools:listitem="@layout/item_blog_view" />
 
         </LinearLayout>

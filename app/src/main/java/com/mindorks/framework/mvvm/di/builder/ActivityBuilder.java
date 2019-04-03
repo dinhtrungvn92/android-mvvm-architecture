@@ -20,6 +20,7 @@ import com.mindorks.framework.mvvm.ui.about.AboutFragmentProvider;
 import com.mindorks.framework.mvvm.ui.feed.FeedActivity;
 import com.mindorks.framework.mvvm.ui.feed.FeedActivityModule;
 import com.mindorks.framework.mvvm.ui.feed.blogs.BlogFragmentProvider;
+import com.mindorks.framework.mvvm.ui.feed.myblogs.MyBlogFragmentProvider;
 import com.mindorks.framework.mvvm.ui.feed.opensource.OpenSourceFragmentProvider;
 import com.mindorks.framework.mvvm.ui.login.LoginActivity;
 import com.mindorks.framework.mvvm.ui.login.LoginActivityModule;
@@ -41,7 +42,8 @@ public abstract class ActivityBuilder {
     @ContributesAndroidInjector(modules = {
             FeedActivityModule.class,
             BlogFragmentProvider.class,
-            OpenSourceFragmentProvider.class})
+            OpenSourceFragmentProvider.class
+    })
     abstract FeedActivity bindFeedActivity();
 
     @ContributesAndroidInjector(modules = LoginActivityModule.class)

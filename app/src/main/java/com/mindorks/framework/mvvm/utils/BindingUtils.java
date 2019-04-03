@@ -18,6 +18,7 @@ package com.mindorks.framework.mvvm.utils;
 
 import android.content.Context;
 import android.databinding.BindingAdapter;
+import android.databinding.ObservableList;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
@@ -43,23 +44,24 @@ public final class BindingUtils {
         // This class is not publicly instantiable
     }
 
-    @BindingAdapter({"data", "action"})
-    public static void addBlogItems(RecyclerView recyclerView, List<BlogResponse.Blog> blogs, boolean isRefresh) {
+    @BindingAdapter({"items", "lastposition"})
+    public static void addBlogItems(RecyclerView recyclerView, ObservableList<BlogResponse.Blog> blogs, int lastposition) {
         BlogAdapter adapter = (BlogAdapter) recyclerView.getAdapter();
         if (adapter != null) {
-            adapter.clearItems();
-            adapter.addItems(blogs, isRefresh);
+//            adapter.clearItems();
+            adapter.addItems(blogs, lastposition);
         }
     }
 
-    @BindingAdapter({"adapter"})
-    public static void addOpenSourceItems(RecyclerView recyclerView, List<OpenSourceItemViewModel> openSourceItems) {
+    @BindingAdapter({"adapter", "size"})
+    public static void addOpenSourceItems(RecyclerView recyclerView, List<OpenSourceItemViewModel> openSourceItems, int size) {
         OpenSourceAdapter adapter = (OpenSourceAdapter) recyclerView.getAdapter();
         if (adapter != null) {
             adapter.clearItems();
             adapter.addItems(openSourceItems);
         }
     }
+
 
     @BindingAdapter({"adapter", "action"})
     public static void addQuestionItems(SwipePlaceHolderView mCardsContainerView, List<QuestionCardData> mQuestionList, int mAction) {

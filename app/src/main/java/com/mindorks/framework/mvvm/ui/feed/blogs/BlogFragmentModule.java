@@ -17,6 +17,7 @@
 package com.mindorks.framework.mvvm.ui.feed.blogs;
 
 import android.arch.lifecycle.ViewModelProvider;
+import android.databinding.ObservableArrayList;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.mindorks.framework.mvvm.ViewModelProviderFactory;
