@@ -55,6 +55,7 @@
                 android:layout_weight="1"
                 android:clipToPadding="false"
                 android:paddingBottom="200dp"
+                app:firstposition="@{viewModel.lastposition1}"
                 app:items="@{viewModel.blogObservableArrayList1}"
                 app:lastposition="@{viewModel.lastposition1}"
                 tools:listitem="@layout/item_blog_view" />
@@ -69,6 +70,7 @@
             android:layout_gravity="center"
             android:visibility="@{viewModel.isLoadingValue1 ? View.VISIBLE : View.GONE}" />
 
+
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,5 +81,4 @@
             android:onClick="@{() -> viewModel.loadMore()}"
             app:srcCompat="@drawable/ic_add_white_24px" />
     </FrameLayout>
-
 </layout>

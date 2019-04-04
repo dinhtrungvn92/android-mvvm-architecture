@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"></import>
+
+        <variable
+            name="viewModel"
+            type="com.mindorks.framework.mvvm.ui.feed.myblogs.MyBlogViewModel"></variable>
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_my_blog"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="200dp"
+                app:items="@{viewModel.myBlogObservableList}"
+                app:lastposition="@{viewModel.getLastPosition()}"
+                tools:listitem="@layout/item_blog_view">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/address_looking_up"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="@{viewModel.isLoading ? View.VISIBLE : View.GONE}" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            app:srcCompat="@drawable/ic_add_white_24px" />
+    </FrameLayout>
+</layout>

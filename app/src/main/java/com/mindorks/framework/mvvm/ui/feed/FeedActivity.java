@@ -113,13 +113,13 @@ public class FeedActivity extends BaseActivity<ActivityFeedBinding, FeedViewMode
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        mPagerAdapter.setCount(2);
+        mPagerAdapter.setCount(3);
 
         mActivityFeedBinding.feedViewPager.setAdapter(mPagerAdapter);
 
         mActivityFeedBinding.tabLayout.addTab(mActivityFeedBinding.tabLayout.newTab().setText(getString(R.string.blog)));
         mActivityFeedBinding.tabLayout.addTab(mActivityFeedBinding.tabLayout.newTab().setText(getString(R.string.open_source)));
-
+        mActivityFeedBinding.tabLayout.addTab(mActivityFeedBinding.tabLayout.newTab().setText(getString(R.string.my_blog)));
         mActivityFeedBinding.feedViewPager.setOffscreenPageLimit(mActivityFeedBinding.tabLayout.getTabCount());
 
         mActivityFeedBinding.feedViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mActivityFeedBinding.tabLayout));

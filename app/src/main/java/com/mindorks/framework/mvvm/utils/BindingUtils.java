@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide;
 import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
 import com.mindorks.framework.mvvm.data.model.others.QuestionCardData;
 import com.mindorks.framework.mvvm.ui.feed.blogs.BlogAdapter;
+import com.mindorks.framework.mvvm.ui.feed.myblogs.MyBlogAdapter;
 import com.mindorks.framework.mvvm.ui.feed.opensource.OpenSourceAdapter;
 import com.mindorks.framework.mvvm.ui.feed.opensource.OpenSourceItemViewModel;
 import com.mindorks.framework.mvvm.ui.main.MainViewModel;
@@ -46,6 +47,22 @@ public final class BindingUtils {
 
     @BindingAdapter({"items", "lastposition"})
     public static void addBlogItems(RecyclerView recyclerView, ObservableList<BlogResponse.Blog> blogs, int lastposition) {
+//        if (recyclerView.getAdapter() instanceof BlogAdapter) {
+        BlogAdapter adapter = (BlogAdapter) recyclerView.getAdapter();
+        if (adapter != null) {
+//            adapter.clearItems();
+            adapter.addItems(blogs, lastposition);
+        }
+/*        } else if (recyclerView.getAdapter() instanceof MyBlogAdapter) {
+            MyBlogAdapter adapter = (MyBlogAdapter) recyclerView.getAdapter();
+            if (adapter != null) {
+
+            }
+        }*/
+    }
+
+    @BindingAdapter({"items", "lastposition", "firstposition"})
+    public static void addBlogItems1(RecyclerView recyclerView, ObservableList<BlogResponse.Blog> blogs, int lastposition, int firstposition) {
         BlogAdapter adapter = (BlogAdapter) recyclerView.getAdapter();
         if (adapter != null) {
 //            adapter.clearItems();

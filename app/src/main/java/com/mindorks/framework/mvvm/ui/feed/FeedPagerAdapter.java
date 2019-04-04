@@ -21,6 +21,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.mindorks.framework.mvvm.ui.feed.blogs.BlogFragment;
+import com.mindorks.framework.mvvm.ui.feed.myblogs.MyBlogFragment;
 import com.mindorks.framework.mvvm.ui.feed.opensource.OpenSourceFragment;
 
 /**
@@ -52,6 +53,8 @@ public class FeedPagerAdapter extends FragmentStatePagerAdapter {
                 return BlogFragment.newInstance();
             case 1:
                 return OpenSourceFragment.newInstance();
+            case 2:
+                return MyBlogFragment.newInstance();
             default:
                 return null;
         }
