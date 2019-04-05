@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.mindorks.framework.mvvm.BR;
@@ -23,9 +24,9 @@ import javax.inject.Inject;
 
 public class MyBlogFragment extends BaseFragment<FragmentMyBlogBinding, MyBlogViewModel>
         implements MyBlogNavigator, BlogAdapter.BlogAdapterListener {
-
+    private static final String TAG = "MyBlogFragment";
     @Inject
-    BlogAdapter mBlogAdapter;
+    MyBlogAdapter mBlogAdapter;
     @Inject
     LinearLayoutManager linearLayoutManager;
     @Inject
@@ -89,11 +90,14 @@ public class MyBlogFragment extends BaseFragment<FragmentMyBlogBinding, MyBlogVi
 
     public void subscribeToLiveData() {
         myBlogViewModel.getMyBlogMutableLiveData().observe(this, blogs -> myBlogViewModel.addMyBlogs(blogs));
+        myBlogViewModel.getLastPositionLiveData().observe(this, lastposition -> {
+            Log.d(TAG, "subscribeToLiveData: " + lastposition);
+        });
     }
 
     @Override
     public void onRetryClick() {
-
+        myBlogViewModel.loadData();
     }
 }
 

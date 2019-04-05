@@ -1,9 +1,12 @@
 package com.mindorks.framework.mvvm.ui.feed.myblogs;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MediatorLiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableInt;
 import android.databinding.ObservableList;
+import android.util.Log;
 
 import com.mindorks.framework.mvvm.data.DataManager;
 import com.mindorks.framework.mvvm.data.model.api.BlogResponse;
@@ -17,15 +20,19 @@ import java.util.List;
  */
 
 public class MyBlogViewModel extends BaseViewModel<MyBlogNavigator> {
+    private static final String TAG = "MyBlogViewModel";
     private final ObservableList<BlogResponse.Blog> myBlogObservableList = new ObservableArrayList<>();
 
     private final MutableLiveData<List<BlogResponse.Blog>> myBlogMutableLiveData;
 
     private final ObservableInt lastposition = new ObservableInt(0);
 
+    private MediatorLiveData<Integer> lastPositionLiveData;
+
     public MyBlogViewModel(DataManager dataManager, SchedulerProvider schedulerProvider) {
         super(dataManager, schedulerProvider);
         myBlogMutableLiveData = new MutableLiveData<>();
+        lastPositionLiveData = new MediatorLiveData<>();
         loadData();
     }
 
@@ -49,7 +56,9 @@ public class MyBlogViewModel extends BaseViewModel<MyBlogNavigator> {
 
     public void addMyBlogs(List<BlogResponse.Blog> myBlogs) {
         lastposition.set(myBlogObservableList.size());
+        lastPositionLiveData.setValue(myBlogObservableList.size());
         myBlogObservableList.addAll(myBlogs);
+        Log.d(TAG, "addMyBlogs: " + myBlogObservableList.size());
     }
 
     public ObservableList<BlogResponse.Blog> getMyBlogObservableList() {
@@ -62,5 +71,9 @@ public class MyBlogViewModel extends BaseViewModel<MyBlogNavigator> {
 
     public ObservableInt getLastPosition() {
         return lastposition;
+    }
+
+    public LiveData<Integer> getLastPositionLiveData() {
+        return lastPositionLiveData;
     }
 }

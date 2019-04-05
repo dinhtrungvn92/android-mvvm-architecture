@@ -26,8 +26,8 @@ public class MyBlogFragmentModule {
     }
 
     @Provides
-    BlogAdapter provideBlogAdapter() {
-        return new BlogAdapter(new ArrayList<>());
+    MyBlogAdapter provideMyBlogAdapter() {
+        return new MyBlogAdapter(new ArrayList<>());
     }
 
 
